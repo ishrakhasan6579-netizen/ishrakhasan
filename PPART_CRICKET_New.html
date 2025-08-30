@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PPART Cricket Academy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @keyframes popin { 
+      from { opacity: 0; transform: scale(.9) translateY(10px); } 
+      to { opacity: 1; transform: scale(1) translateY(0); } 
+    }
+    .popin { animation: popin .6s ease-out both; }
+    .hero-bg { 
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,.15), transparent 40%), 
+                  radial-gradient(1200px 600px at 90% 20%, rgba(255,255,255,.2), transparent 40%), 
+                  linear-gradient(135deg,#0a3d91,#0d6efd);
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .cricket-ball {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(to bottom, #d97706, #f59e0b, #fbbf24);
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.8);
+    }
+    .player-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .player-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    .stat-table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    .stat-table th {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .stat-table tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-white">
+  <!-- Navigation -->
+  <nav class="sticky-nav border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center mr-3">
+          <i class="fas fa-baseball-ball text-slate-900 text-lg"></i>
+        </div>
+        <span class="text-xl font-bold">PPART <span class="text-yellow-300">Cricket</span></span>
+      </div>
+      <div class="hidden md:flex space-x-6">
+        <a href="#profiles" class="hover:text-yellow-300 transition">Players</a>
+        <a href="#tournaments" class="hover:text-yellow-300 transition">Tournaments</a>
+        <a href="#teams" class="hover:text-yellow-300 transition">Teams</a>
+        <a href="#winners" class="hover:text-yellow-300 transition">Winners</a>
+        <a href="#statistics" class="hover:text-yellow-300 transition">Stats</a>
+      </div>
+      <button class="md:hidden">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero-bg relative overflow-hidden">
+    <div class="cricket-ball" style="top: 20%; left: 5%;"></div>
+    <div class="cricket-ball" style="top: 60%; right: 10%;"></div>
+    
+    <div class="max-w-6xl mx-auto px-6 py-20 text-center relative z-20">
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight popin">Welcome to <span class="text-yellow-300">PPART Cricket</span></h1>
+      <p class="mt-4 text-blue-100 max-w-2xl mx-auto text-lg popin delay-1">Train. Compete. Win. — Player profiles, tournaments, teams, winners, and stats.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4 popin delay-2">
+        <a href="#profiles" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition flex items-center">
+          <i class="fas fa-user mr-2"></i> Player Profile
+        </a>
+        <a href="#tournaments" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition flex items-center">
+          <i class="fas fa-trophy mr-2"></i> Tournaments
+        </a>
+        <a href="#teams" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition flex items-center">
+          <i class="fas fa-users mr-2"></i> Teams
+        </a>
+        <a href="#winners" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition flex items-center">
+          <i class="fas fa-medal mr-2"></i> Winners
+        </a>
+        <a href="#statistics" class="px-5 py-3 rounded-xl bg-yellow-400 text-slate-900 font-semibold hover:bg-yellow-300 transition flex items-center">
+          <i class="fas fa-chart-bar mr-2"></i> Statistics
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Player Profiles -->
+  <section id="profiles" class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl md:text-4xl font-bold mb-2 text-center">Player Profiles</h2>
+    <p class="text-blue-200 text-center mb-10">Meet our talented players and their specialties</p>
+    
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Junayed -->
+      <article class="player-card bg-white/5 rounded-2xl border border-white/10 p-6 shadow-xl popin">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1560272564-c83b6647c1be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" class="w-32 h-32 rounded-full border-4 border-yellow-400 mx-auto object-cover" alt="Junayed">
+          <span class="absolute bottom-0 right-1/4 transform translate-x-1/2 translate-y-1/4 bg-slate-900 text-yellow-400 rounded-full w-10 h-10 flex items-center justify-center border-2 border-yellow-400">
+            <i class="fas fa-baseball-bat"></i>
+          </span>
+        </div>
+        <h3 class="mt-4 text-2xl font-bold text-yellow-300 text-center">Junayed</h3>
+        <p class="mt-2 text-sm text-blue-100 text-center">Left handed batsman · Left arm Spin</p>
+        <div class="mt-4 space-y-2 text-sm">
+          <div class="flex items-center">
+            <span class="font-semibold text-green-300 w-24">Strength:</span>
+            <span>Power hitting</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-semibold text-red-300 w-24">Weakness:</span>
+            <span>Off sided ball</span>
+          </div>
+          <div class="flex justify-between text-blue-200 mt-3 pt-3 border-t border-white/10">
+            <span><i class="fas fa-birthday-cake mr-1"></i> Age: 16</span>
+            <span><i class="fas fa-ruler-vertical mr-1"></i> Height: 5'9"</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Sakib -->
+      <article class="player-card bg-white/5 rounded-2xl border border-white/10 p-6 shadow-xl popin delay-1">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1593118247619-e2d6f056869e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" class="w-32 h-32 rounded-full border-4 border-yellow-400 mx-auto object-cover" alt="Sakib">
+          <span class="absolute bottom-0 right-1/4 transform translate-x-1/2 translate-y-1/4 bg-slate-900 text-yellow-400 rounded-full w-10 h-10 flex items-center justify-center border-2 border-yellow-400">
+            <i class="fas fa-baseball-bat"></i>
+          </span>
+        </div>
+        <h3 class="mt-4 text-2xl font-bold text-yellow-300 text-center">Sakib</h3>
+        <p class="mt-2 text-sm text-blue-100 text-center">Right handed batsman · Right arm Mid Fast</p>
+        <div class="mt-4 space-y-2 text-sm">
+          <div class="flex items-center">
+            <span class="font-semibold text-green-300 w-24">Strength:</span>
+            <span>Sweep shot</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-semibold text-red-300 w-24">Weakness:</span>
+            <span>—</span>
+          </div>
+          <div class="flex justify-between text-blue-200 mt-3 pt-3 border-t border-white/10">
+            <span><i class="fas fa-birthday-cake mr-1"></i> Age: 14</span>
+            <span><i class="fas fa-ruler-vertical mr-1"></i> Height: 5'0"</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Sifat -->
+      <article class="player-card bg-white/5 rounded-2xl border border-white/10 p-6 shadow-xl popin delay-2">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" class="w-32 h-32 rounded-full border-4 border-yellow-400 mx-auto object-cover" alt="Sifat">
+          <span class="absolute bottom-0 right-1/4 transform translate-x-1/2 translate-y-1/4 bg-slate-900 text-yellow-400 rounded-full w-10 h-10 flex items-center justify-center border-2 border-yellow-400">
+            <i class="fas fa-baseball-bat"></i>
+          </span>
+        </div>
+        <h3 class="mt-4 text-2xl font-bold text-yellow-300 text-center">Sifat</h3>
+        <p class="mt-2 text-sm text-blue-100 text-center">Right handed batsman · Right arm Off Spin</p>
+        <div class="mt-4 space-y-2 text-sm">
+          <div class="flex items-center">
+            <span class="font-semibold text-green-300 w-24">Strength:</span>
+            <span>Accuracy in line and length</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-semibold text-red-300 w-24">Weakness:</span>
+            <span>Power hitting</span>
+          </div>
+          <div class="flex justify-between text-blue-200 mt-3 pt-3 border-t border-white/10">
+            <span><i class="fas fa-birthday-cake mr-1"></i> Age: 15</span>
+            <span><i class="fas fa-ruler-vertical mr-1"></i> Height: 5'6"</span>
+          </div>
+        </div>
+      </article>
+    </div>
+    
+    <div class="text-center mt-10">
+      <button class="px-6 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 transition">
+        View All Players <i class="fas fa-arrow-right ml-2"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- Tournaments -->
+  <section id="tournaments" class="max-w-6xl mx-auto px-6 py-16 bg-slate-900/50 rounded-3xl mx-4">
+    <h2 class="text-3xl md:text-4xl font-bold mb-2 text-center">Tournaments</h2>
+    <p class="text-blue-200 text-center mb-10">Our past and upcoming cricket events</p>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white/5 rounded-2xl border border-white/10 p-6">
+        <h3 class="text-xl font-semibold text-yellow-300 mb-4 flex items-center">
+          <i class="fas fa-trophy mr-2"></i> Upcoming Tournament
+        </h3>
+        <div class="flex items-center mb-4">
+          <div class="bg-yellow-400/20 p-3 rounded-lg mr-4">
+            <i class="fas fa-calendar-alt text-yellow-400 text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold">PPART Summer Cup 2023</h4>
+            <p class="text-blue-200 text-sm">July 15-20, 2023</p>
+          </div>
+        </div>
+        <p class="text-blue-100 mb-4">Join us for the annual summer cricket tournament featuring teams from across the region.</p>
+        <button class="w-full py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 transition">
+          Register Your Team
+        </button>
+      </div>
+      
+      <div class="bg-white/5 rounded-2xl border border-white/10 p-6">
+        <h3 class="text-xl font-semibold text-yellow-300 mb-4 flex items-center">
+          <i class="fas fa-history mr-2"></i> Recent Results
+        </h3>
+        
+        <div class="space-y-4">
+          <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+            <div>
+              <h4 class="font-semibold">PPART Spring League</h4>
+              <p class="text-blue-200 text-sm">April 2023</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-yellow-300">Champions</p>
+              <p class="text-blue-200 text-sm">PPART Strikers</p>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+            <div>
+              <h4 class="font-semibold">Winter Challenge</h4>
+              <p class="text-blue-200 text-sm">January 2023</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-yellow-300">Champions</p>
+              <p class="text-blue-200 text-sm">PPART Warriors</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teams -->
+  <section id="teams" class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl md:text-4xl font-bold mb-2 text-center">Teams</h2>
+    <p class="text-blue-200 text-center mb-10">Our academy teams and their members</p>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white/5 rounded-2xl border border-white/10 p-6">
+        <div class="flex items-start mb-4">
+          <div class="bg-red-500/20 p-3 rounded-lg mr-4">
+            <i class="fas fa-fire text-red-400 text-xl"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-yellow-300">PPART Warriors</h3>
+            <p class="text-blue-100 text-sm">Captain: Junayed</p>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <h4 class="font-semibold text-blue-200 mb-2">Team Members:</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Junayed</span>
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Sakib</span>
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Ishrak</span>
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Anto</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center text-sm text-blue-200">
+          <span class="mr-4"><i class="fas fa-trophy mr-1"></i> 2 Titles</span>
+          <span><i class="fas fa-calendar mr-1"></i> Since 2022</span>
+        </div>
+      </div>
+      
+      <div class="bg-white/5 rounded-2xl border border-white/10 p-6">
+        <div class="flex items-start mb-4">
+          <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+            <i class="fas fa-bolt text-blue-400 text-xl"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-yellow-300">PPART Strikers</h3>
+            <p class="text-blue-100 text-sm">Captain: Sifat</p>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <h4 class="font-semibold text-blue-200 mb-2">Team Members:</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Sifat</span>
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Apurbo</span>
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Araf</span>
+            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Siam</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center text-sm text-blue-200">
+          <span class="mr-4"><i class="fas fa-trophy mr-1"></i> 1 Title</span>
+          <span><i class="fas fa-calendar mr-1"></i> Since 2022</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Winners -->
+  <section id="winners" class="max-w-6xl mx-auto px-6 py-16 bg-slate-900/50 rounded-3xl mx-4">
+    <h2 class="text-3xl md:text-4xl font-bold mb-2 text-center">Recent Winners</h2>
+    <p class="text-blue-200 text-center mb-10">Celebrating our champions and their achievements</p>
+    
+    <div class="bg-white/5 rounded-2xl border border-white/10 p-6 md:p-8">
+      <div class="text-center mb-8">
+        <div class="w-24 h-24 mx-auto bg-yellow-400/20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-trophy text-yellow-400 text-4xl"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-yellow-300">PPART Spring League 2023</h3>
+        <p class="text-blue-200">Champions: PPART Strikers</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="text-center p-4 bg-white/5 rounded-xl">
+          <div class="w-16 h-16 mx-auto bg-gray-400/20 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-2 text-gray-300 text-xl"></i>
+          </div>
+          <h4 class="font-semibold">Runner-up</h4>
+          <p class="text-blue-200">PPART Warriors</p>
+        </div>
+        
+        <div class="text-center p-4 bg-white/5 rounded-xl">
+          <div class="w-16 h-16 mx-auto bg-amber-700/20 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-3 text-amber-500 text-xl"></i>
+          </div>
+          <h4 class="font-semibold">Third Place</h4>
+          <p class="text-blue-200">Youth Blasters</p>
+        </div>
+        
+        <div class="text-center p-4 bg-white/5 rounded-xl">
+          <div class="w-16 h-16 mx-auto bg-yellow-400/20 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-star text-yellow-400 text-xl"></i>
+          </div>
+          <h4 class="font-semibold">Player of Tournament</h4>
+          <p class="text-blue-200">Sakib (Warriors)</p>
+        </div>
+      </div>
+      
+      <div class="text-center">
+        <button class="px-6 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 transition">
+          View All Winners <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics -->
+  <section id="statistics" class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl md:text-4xl font-bold mb-2 text-center">Statistics</h2>
+    <p class="text-blue-200 text-center mb-10">Detailed performance metrics of our players</p>
+
+    <!-- Format Tabs -->
+    <div class="flex flex-wrap gap-2 mb-6 justify-center" id="format-tabs"></div>
+
+    <!-- Bat/Bowl Toggle -->
+    <div class="flex gap-2 mb-6 justify-center">
+      <button id="tab-batting" class="px-4 py-2 rounded-lg bg-yellow-400 text-slate-900 font-semibold flex items-center">
+        <i class="fas fa-baseball-bat mr-2"></i> Batting
+      </button>
+      <button id="tab-bowling" class="px-4 py-2 rounded-lg bg-white/10 border border-white/10 flex items-center">
+        <i class="fas fa-baseball mr-2"></i> Bowling
+      </button>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-center">
+      <div class="relative w-full md:w-64">
+        <input type="text" placeholder="Search player..." class="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-200"></i>
+      </div>
+      <select class="w-full md:w-48 px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+        <option>Sort by Runs</option>
+        <option>Sort by Wickets</option>
+        <option>Sort by Average</option>
+      </select>
+    </div>
+
+    <!-- Table container -->
+    <div id="table-wrap" class="bg-white/5 rounded-2xl border border-white/10 overflow-x-auto p-4 md:p-6"></div>
+    
+    <!-- Download option -->
+    <div class="mt-6 text-center">
+      <button class="px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 transition flex items-center mx-auto">
+        <i class="fas fa-download mr-2"></i> Download Stats
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 py-12 mt-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center mr-3">
+              <i class="fas fa-baseball-ball text-slate-900 text-lg"></i>
+            </div>
+            <span class="text-xl font-bold">PPART <span class="text-yellow-300">Cricket</span></span>
+          </div>
+          <p class="text-blue-200 text-sm">Training the next generation of cricket champions through dedication, discipline, and professional coaching.</p>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="#profiles" class="text-blue-200 hover:text-yellow-300 transition">Players</a></li>
+            <li><a href="#tournaments" class="text-blue-200 hover:text-yellow-300 transition">Tournaments</a></li>
+            <li><a href="#teams" class="text-blue-200 hover:text-yellow-300 transition">Teams</a></li>
+            <li><a href="#statistics" class="text-blue-200 hover:text-yellow-300 transition">Statistics</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+          <ul class="space-y-2 text-blue-200">
+            <li class="flex items-center">
+              <i class="fas fa-map-marker-alt mr-2 text-yellow-300"></i>
+              <span>123 Cricket Avenue, Sports City</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-phone mr-2 text-yellow-300"></i>
+              <span>+1 234 567 8900</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-envelope mr-2 text-yellow-300"></i>
+              <span>info@ppartcricket.com</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-400 hover:text-slate-900 transition">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-400 hover:text-slate-900 transition">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-400 hover:text-slate-900 transition">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-400 hover:text-slate-900 transition">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 mt-8 pt-8 text-center text-blue-200 text-sm">
+        <p>© 2023 PPART Cricket Academy. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+const STATS = {
+  "T20": {
+    "batting": [
+      {"Sl No.": "1", "Name": "Ishrak", "Runs": "23", "50's": "0", "100's": "0", "SR": "100", "BOB": "0", "Style": "RHB", "Type": "All-R"}, 
+      {"Sl No.": "2", "Name": "Anto", "Runs": "24", "50's": "0", "100's": "0", "SR": "133.33", "BOB": "0", "Style": "RHB", "Type": "All-R"}, 
+      {"Sl No.": "3", "Name": "Junayed", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "LHB", "Type": "All-R"}, 
+      {"Sl No.": "4", "Name": "Apurbo", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "5", "Name": "Shakib", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "6", "Name": "Araf", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "7", "Name": "Siam", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "All-R"}, 
+      {"Sl No.": "8", "Name": "Siyam Bhai", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "9", "Name": "Sifat", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "All-R"}
+    ], 
+    "bowling": [
+      {"Sl No": "1", "Name": "Ishrak", "Matches": "1", "Wickets": "0", "Economy": "6.5", "BOB": "0/0", "Style": "RH", "Type": "Spinn", "3 Wickets": "0"}, 
+      {"Sl No": "2", "Name": "Aonto", "Matches": "1", "Wickets": "1", "Economy": "7.2", "BOB": "0/0", "Style": "RH", "Type": "Pace", "3 Wickets": "0"}, 
+      {"Sl No": "3", "Name": "Junayed", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "LH", "Type": "Spinn", "3 Wickets": "0"}, 
+      {"Sl No": "4", "Name": "Apurbo", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Mid-Pace", "3 Wickets": "0"}, 
+      {"Sl No": "5", "Name": "Shakib", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Mid-Pace", "3 Wickets": "0"}, 
+      {"Sl No": "6", "Name": "Araf", "Matches": "1", "Wickets": "1", "Economy": "6.8", "BOB": "0/0", "Style": "LH", "Type": "Pace", "3 Wickets": "0"}, 
+      {"Sl No": "7", "Name": "Siam", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Spinn", "3 Wickets": "0"}, 
+      {"Sl No": "8", "Name": "Siam Bhai", "Matches": "1", "Wickets": "2", "Economy": "5.5", "BOB": "0/0", "Style": "RH", "Type": "Mid-Pace", "3 Wickets": "0"}, 
+      {"Sl No": "9", "Name": "Sifat", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Spinn", "3 Wickets": "0"}
+    ]
+  }, 
+  "ODI": {
+    "batting": [
+      {"Sl No.": "1", "Name": "Ishrak", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "All-R"}, 
+      {"Sl No.": "2", "Name": "Anto", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "All-R"}, 
+      {"Sl No.": "3", "Name": "Junayed", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "LHB", "Type": "All-R"}, 
+      {"Sl No.": "4", "Name": "Apurbo", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "5", "Name": "Shakib", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "6", "Name": "Araf", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "7", "Name": "Siam", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "All-R"}, 
+      {"Sl No.": "8", "Name": "Siyam Bhai", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "Bat"}, 
+      {"Sl No.": "9", "Name": "Sifat", "Runs": "0", "50's": "0", "100's": "0", "SR": "0", "BOB": "0", "Style": "RHB", "Type": "All-R"}
+    ], 
+    "bowling": [
+      {"Sl No": "1", "Name": "Ishrak", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Spinn", "3 Wickets": "0"}, 
+      {"Sl No": "2", "Name": "Aonto", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Pace", "3 Wickets": "0"}, 
+      {"Sl No": "3", "Name": "Junayed", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "LH", "Type": "Spinn", "3 Wickets": "0"}, 
+      {"Sl No": "4", "Name": "Apurbo", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Mid-Pace", "3 Wickets": "0"}, 
+      {"Sl No": "5", "Name": "Shakib", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Mid-Pace", "3 Wickets": "0"}, 
+      {"Sl No": "6", "Name": "Araf", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "LH", "Type": "Pace", "3 Wickets": "0"}, 
+      {"Sl No": "7", "Name": "Siam", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Spinn", "3 Wickets": "0"}, 
+      {"Sl No": "8", "Name": "Siam Bhai", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Mid-Pace", "3 Wickets": "0"}, 
+      {"Sl No": "9", "Name": "Sifat", "Matches": "0", "Wickets": "0", "Economy": "0", "BOB": "0/0", "Style": "RH", "Type": "Spinn", "3 Wickets": "0"}
+    ]
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize with T20 batting stats
+  renderTable('T20', 'batting');
+  
+  // Create format tabs
+  const formatTabs = document.getElementById('format-tabs');
+  Object.keys(STATS).forEach(format => {
+    const button = document.createElement('button');
+    button.className = `px-4 py-2 rounded-lg ${format === 'T20' ? 'bg-yellow-400 text-slate-900' : 'bg-white/10'} border border-white/10 transition format-tab`;
+    button.textContent = format;
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.format-tab').forEach(tab => {
+        tab.className = 'px-4 py-2 rounded-lg bg-white/10 border border-white/10 transition format-tab';
+      });
+      button.className = 'px-4 py-2 rounded-lg bg-yellow-400 text-slate-900 border border-white/10 transition format-tab';
+      
+      const currentTab = document.querySelector('#tab-batting').classList.contains('bg-yellow-400') ? 'batting' : 'bowling';
+      renderTable(format, currentTab);
+    });
+    formatTabs.appendChild(button);
+  });
+  
+  // Batting/Bowling toggle
+  document.getElementById('tab-batting').addEventListener('click', function() {
+    this.className = 'px-4 py-2 rounded-lg bg-yellow-400 text-slate-900 font-semibold flex items-center';
+    document.getElementById('tab-bowling').className = 'px-4 py-2 rounded-lg bg-white/10 border border-white/10 flex items-center';
+    
+    const activeFormat = document.querySelector('.format-tab.bg-yellow-400').textContent;
+    renderTable(activeFormat, 'batting');
+  });
+  
+  document.getElementById('tab-bowling').addEventListener('click', function() {
+    this.className = 'px-4 py-2 rounded-lg bg-yellow-400 text-slate-900 font-semibold flex items-center';
+    document.getElementById('tab-batting').className = 'px-4 py-2 rounded-lg bg-white/10 border border-white/10 flex items-center';
+    
+    const activeFormat = document.querySelector('.format-tab.bg-yellow-400').textContent;
+    renderTable(activeFormat, 'bowling');
+  });
+  
+  function renderTable(format, type) {
+    const tableWrap = document.getElementById('table-wrap');
+    const data = STATS[format][type];
+    
+    if (!data || data.length === 0) {
+      tableWrap.innerHTML = '<p class="text-center py-8 text-blue-200">No data available</p>';
+      return;
+    }
+    
+    const headers = Object.keys(data[0]);
+    
+    let tableHTML = `
+      <table class="stat-table w-full text-sm text-left">
+        <thead class="text-xs uppercase">
+          <tr>
+    `;
+    
+    headers.forEach(header => {
+      tableHTML += `<th class="px-4 py-3">${header}</th>`;
+    });
+    
+    tableHTML += `</tr></thead><tbody>`;
+    
+    data.forEach(row => {
+      tableHTML += `<tr class="border-t border-white/10">`;
+      headers.forEach(header => {
+        tableHTML += `<td class="px-4 py-3">${row[header]}</td>`;
+      });
+      tableHTML += `</tr>`;
+    });
+    
+    tableHTML += `</tbody></table>`;
+    
+    tableWrap.innerHTML = tableHTML;
+  }
+});
+</script>
+</body>
+</html>
